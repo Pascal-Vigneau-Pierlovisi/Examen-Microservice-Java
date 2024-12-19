@@ -1,0 +1,29 @@
+# Configuration existante...
+
+# Configuration Springdoc
+springdoc:
+  api-docs:
+    path: /api-docs
+  swagger-ui:
+    path: /swagger-ui
+    operationsSorter: method
+
+# Configuration Hystrix
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 4000
+      circuitBreaker:
+        requestVolumeThreshold: 20
+        errorThresholdPercentage: 50
+        sleepWindowInMilliseconds: 5000
+
+# Configuration Spring Retry
+spring:
+  retry:
+    maxAttempts: 3
+    maxDelay: 1000
+    initialInterval: 100 

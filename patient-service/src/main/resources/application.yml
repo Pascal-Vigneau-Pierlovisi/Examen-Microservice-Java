@@ -1,0 +1,9 @@
+# Configuration existante...
+
+# Configuration Springdoc
+springdoc:
+  api-docs:
+    path: /api-docs
+  swagger-ui:
+    path: /swagger-ui
+    operationsSorter: method 
