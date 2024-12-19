@@ -1,0 +1,33 @@
+version: '3.8'
+services:
+  patient-db:
+    image: mysql:8.0
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: patientdb
+    ports:
+      - "3307:3306"
+
+  practitioner-db:
+    image: mysql:8.0
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: practitionerdatabase
+    ports:
+      - "3308:3306"
+
+  appointment-db:
+    image: mysql:8.0
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: appointmentdb
+    ports:
+      - "3309:3306"
+
+  medicalrecord-db:
+    image: mysql:8.0
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: medicalrecorddb
+    ports:
+      - "3310:3306"
