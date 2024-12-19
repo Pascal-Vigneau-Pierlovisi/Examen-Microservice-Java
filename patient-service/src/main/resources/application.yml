@@ -1,5 +1,6 @@
 server:
   port: 8081
+  address: 0.0.0.0 # Écoute sur toutes les interfaces réseau
 
 spring:
   application:
@@ -20,6 +21,23 @@ eureka:
       defaultZone: http://localhost:8761/eureka/
   instance:
     prefer-ip-address: true
+
+
+# Configuration Actuator
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*" # Expose tous les endpoints Actuator
+  endpoint:
+    health:
+      show-details: always # Affiche les détails pour /actuator/health
+  info:
+    app:
+      name: "Patients Service"
+      description: "Service de gestion des Patients"
+      version: "1.0.0"
+
 
 
 # Configuration Springdoc
