@@ -27,3 +27,43 @@ spring:
     maxAttempts: 3
     maxDelay: 1000
     initialInterval: 100 
+
+server:
+  port: 8084
+
+spring:
+  application:
+    name: appointment-service
+  datasource:
+    url: jdbc:mysql://localhost:3309/appointment_db
+    username: root
+    password: root
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
+
+resilience4j:
+  circuitbreaker:
+    instances:
+      googleCalendar:
+        slidingWindowSize: 10
+        failureRateThreshold: 50
+        waitDurationInOpenState: 30s
+        permittedNumberOfCallsInHalfOpenState: 2
+  retry:
+    instances:
+      googleCalendar:
+        maxAttempts: 3
+        waitDuration: 1s
+        enableExponentialBackoff: true
+        exponentialBackoffMultiplier: 2
+
+logging:
+  level:
+    com.example: DEBUG
