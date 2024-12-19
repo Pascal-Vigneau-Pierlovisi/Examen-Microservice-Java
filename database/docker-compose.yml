@@ -1,33 +1,71 @@
 version: '3.8'
+
 services:
+  # Patient Database
   patient-db:
     image: mysql:8.0
+    container_name: patient-db
+    ports:
+      - "3307:3306"
     environment:
       MYSQL_ROOT_PASSWORD: root
       MYSQL_DATABASE: patientdb
-    ports:
-      - "3307:3306"
+    command: --default-authentication-plugin=mysql_native_password --bind-address=0.0.0.0
+    volumes:
+      - patient-db-data:/var/lib/mysql
+    networks:
+      - microservices-network
 
+  # Practitioner Database
   practitioner-db:
     image: mysql:8.0
+    container_name: practitioner-db
+    ports:
+      - "3308:3306"
     environment:
       MYSQL_ROOT_PASSWORD: root
       MYSQL_DATABASE: practitionerdatabase
-    ports:
-      - "3308:3306"
+    command: --default-authentication-plugin=mysql_native_password --bind-address=0.0.0.0
+    volumes:
+      - practitioner-db-data:/var/lib/mysql
+    networks:
+      - microservices-network
 
+  # Appointment Database
   appointment-db:
     image: mysql:8.0
+    container_name: appointment-db
+    ports:
+      - "3309:3306"
     environment:
       MYSQL_ROOT_PASSWORD: root
       MYSQL_DATABASE: appointmentdb
-    ports:
-      - "3309:3306"
+    command: --default-authentication-plugin=mysql_native_password --bind-address=0.0.0.0
+    volumes:
+      - appointment-db-data:/var/lib/mysql
+    networks:
+      - microservices-network
 
+  # Medical Record Database
   medicalrecord-db:
     image: mysql:8.0
+    container_name: medicalrecord-db
+    ports:
+      - "3310:3306"
     environment:
       MYSQL_ROOT_PASSWORD: root
       MYSQL_DATABASE: medicalrecorddb
-    ports:
-      - "3310:3306"
+    command: --default-authentication-plugin=mysql_native_password --bind-address=0.0.0.0
+    volumes:
+      - medicalrecord-db-data:/var/lib/mysql
+    networks:
+      - microservices-network
+
+volumes:
+  patient-db-data:
+  practitioner-db-data:
+  appointment-db-data:
+  medicalrecord-db-data:
+
+networks:
+  microservices-network:
