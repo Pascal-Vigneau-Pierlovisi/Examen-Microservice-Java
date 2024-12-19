@@ -23,6 +23,10 @@ spring:
           uri: lb://practitioner-service
           predicates:
             - Path=/api/practitioners/**
+        - id: medical-record-service
+          uri: lb://medical-record-service
+          predicates:
+            - Path=/api/medical-records/**
 
 eureka:
   client:
