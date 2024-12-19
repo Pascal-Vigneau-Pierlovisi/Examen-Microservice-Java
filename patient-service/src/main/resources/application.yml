@@ -1,6 +1,6 @@
 server:
   port: 8081
-  address: 0.0.0.0 # Écoute sur toutes les interfaces réseau
+  address: 0.0.0.0 # Permet au service d'écouter sur toutes les interfaces
 
 spring:
   application:
@@ -21,6 +21,8 @@ eureka:
       defaultZone: http://localhost:8761/eureka/
   instance:
     prefer-ip-address: true
+    hostname: localhost # Utiliser "localhost" comme nom d'hôte pour l'enregistrement
+
 
 
 # Configuration Actuator
@@ -39,11 +41,13 @@ management:
       version: "1.0.0"
 
 
+logging:
+  level:
+    org.springdoc: DEBUG
 
-# Configuration Springdoc
 springdoc:
   api-docs:
     path: /api-docs
   swagger-ui:
     path: /swagger-ui
-    operationsSorter: method 
+

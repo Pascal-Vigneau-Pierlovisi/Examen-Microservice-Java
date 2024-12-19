@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Swagger UI</title>
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/4.18.2/swagger-ui.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/4.18.2/swagger-ui-bundle.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/4.18.2/swagger-ui-standalone-preset.js"></script>
+  </head>
+  <body>
+    <div id="swagger-ui"></div>
+    <script>
+      window.onload = function() {
+        const ui = SwaggerUIBundle({
+          url: '/api/patients/api-docs', // URL du fichier JSON via le Gateway
+          dom_id: '#swagger-ui',
+          presets: [SwaggerUIBundle.presets.apis, SwaggerUIStandalonePreset],
+          layout: "BaseLayout",
+          deepLinking: true
+        });
+      };
+    </script>
+  </body>
+</html>

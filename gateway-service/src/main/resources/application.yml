@@ -1,6 +1,7 @@
 server:
   port: 8080
 
+
 spring:
   application:
     name: gateway-service
@@ -8,42 +9,45 @@ spring:
     gateway:
       discovery:
         locator:
-          enabled: true
+          enabled: true # Active la découverte des services via Eureka
           lower-case-service-id: true
       routes:
-        - id: appointment-service
-          uri: lb://appointment-service
-          predicates:
-            - Path=/api/appointments/**
         - id: patient-service
           uri: lb://patient-service
           predicates:
             - Path=/api/patients/**
+          filters:
+            - RewritePath=/api/patients(?<segment>/?.*), /patients${segment}
+            - DedupeResponseHeader=Access-Control-Allow-Credentials Access-Control-Allow-Origin
+
         - id: practitioner-service
           uri: lb://practitioner-service
           predicates:
             - Path=/api/practitioners/**
-        - id: medical-record-service
-          uri: lb://medical-record-service
-          predicates:
-            - Path=/api/medical-records/**
+          filters:
+            - RewritePath=/api/practitioners(?<segment>/?.*), /practitioners${segment}
 
 eureka:
   client:
-    serviceUrl:
-      defaultZone: http://localhost:8761/eureka/
+    service-url:
+      defaultZone: http://localhost:8761/eureka/ # URL du serveur Eureka
   instance:
-    preferIpAddress: true
+    prefer-ip-address: true # Préfère l'adresse IP pour l'enregistrement des instances
 
 management:
   endpoints:
     web:
       exposure:
-        include: "*"
+        include: "*" # Expose tous les endpoints Actuator
   endpoint:
     health:
-      show-details: ALWAYS
+      show-details: ALWAYS # Montre les détails des checks de santé
       show-components: ALWAYS
   health:
     circuitbreakers:
-      enabled: true
+      enabled: true # Active la gestion des circuits ouverts/fermés pour les health checks
+
+logging:
+  level:
+    org.springframework.cloud.gateway: DEBUG
+    reactor.netty: DEBUG
